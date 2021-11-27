@@ -7,4 +7,3 @@ function Request() {
     this.mealPeriod = "";
     this.taken = false;
 }
-
