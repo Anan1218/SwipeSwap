@@ -1,6 +1,9 @@
 function User() {
     this.id = "";
-    this.username = "";
+    this.email = "";
+    this.displayName = "";
     this.phoneNumber = "";
     this.photoUrl = "";
+    this.swipeListings = [];
+    this.swipeRequests = [];
 }

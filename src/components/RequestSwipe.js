@@ -4,11 +4,8 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { firebase } from "../services/Firebase";
-import { getFirestore, collection, addDoc, setDoc, doc} from 'firebase/firestore/lite';
-
-const db = getFirestore(firebase);
-
+import { db } from "../services/Firebase";
+import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestore/lite';
 function RequestSwipe() {
   const [requests, setRequests] = useState({
     diningHall: "epic",
@@ -18,7 +15,7 @@ function RequestSwipe() {
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
-    
+
   }, []);
 
 
@@ -32,16 +29,16 @@ function RequestSwipe() {
       diningHallLocation: requests.diningHall,
       mealPeriod: requests.period,
       requestCreated: new Date(),
-      userId: "", 
+      userId: "",
     };
 
     try {
-      const docRef = doc(collection(db, "BuySwipe"))
-      data.id = docRef.id
-      await setDoc(docRef, {...data})
+      const docRef = doc(collection(db, "BuySwipe"));
+      data.id = docRef.id;
+      await setDoc(docRef, { ...data });
       // await addDoc(collection(db, "buySwipe"), data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
       console.log("error");
     }
   };
@@ -63,7 +60,7 @@ function RequestSwipe() {
   return (
     <div>
       <p>Request Swipe</p>
-    
+
       <form onSubmit={submitRequest}>
         <label>
           Dining Hall:
