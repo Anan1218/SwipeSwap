@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from "react";
 // import RequestsService from 'src/services/RequestsService.js'
 
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCjXYqwNdwAb3Z-4yHuozlRB30sKvFc4b0",
-  authDomain: "swipeswap-ec1f0.firebaseapp.com",
-  projectId: "swipeswap-ec1f0",
-  storageBucket: "swipeswap-ec1f0.appspot.com",
-  messagingSenderId: "594857878325",
-  appId: "1:594857878325:web:7705ac4eee924e73cce27c"
-};
+import { firebase } from "../services/Firebase";
+import { getFirestore, collection, addDoc, setDoc, doc} from 'firebase/firestore/lite';
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getFirestore(firebase);
 
 function RequestSwipe() {
   const [requests, setRequests] = useState({
-    diningHall: "",
-    period: "",
+    diningHall: "epic",
+    period: "breakfast",
   });
 
   const [startDate, setStartDate] = useState(new Date());
@@ -32,11 +22,28 @@ function RequestSwipe() {
   }, []);
 
 
-  const submitRequest = (event) => {
+  const submitRequest = async (event) => {
     event.preventDefault();
+    // console.log(requests);
+    // console.log(startDate);
+    let data = {
+      date: startDate,
+      id: "",
+      diningHallLocation: requests.diningHall,
+      mealPeriod: requests.period,
+      requestCreated: new Date(),
+      userId: "", 
+    };
 
-    console.log(requests);
-    console.log(startDate);
+    try {
+      const docRef = doc(collection(db, "BuySwipe"))
+      data.id = docRef.id
+      await setDoc(docRef, {...data})
+      // await addDoc(collection(db, "buySwipe"), data);
+    } catch (e) {
+      console.log(e)
+      console.log("error");
+    }
   };
 
   const handleDiningChange = (event) => {
