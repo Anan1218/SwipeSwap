@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { db } from "../services/Firebase";
+import { getSignedInUser } from "../services/Firebase";
 import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestore/lite';
 function RequestSwipe() {
+  const db = getFirestore();
   const [requests, setRequests] = useState({
     diningHall: "epic",
     period: "breakfast",
@@ -31,15 +32,12 @@ function RequestSwipe() {
       requestCreated: new Date(),
       userId: "",
     };
-
-    try {
+    const user = getSignedInUser();
+    if (user) {
+      data.userId = user.uid;
       const docRef = doc(collection(db, "BuySwipe"));
       data.id = docRef.id;
       await setDoc(docRef, { ...data });
-      // await addDoc(collection(db, "buySwipe"), data);
-    } catch (e) {
-      console.log(e);
-      console.log("error");
     }
   };
 
