@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { firebase } from "../services/Firebase";
+import { db } from "../services/Firebase";
 import { getFirestore, collection, getDocs} from 'firebase/firestore/lite';
 
 import SwipeList from "./SwipeList";
-
-const db = getFirestore(firebase);
 
 function SearchSwipe() {
   const [swipes, setSwipes] = useState([]);

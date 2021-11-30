@@ -27,6 +27,7 @@ export function isAuthenticated() {
         return true;
     } else {
         return false;
+        // return true;
     }
 }
 // Initialize Firebase
