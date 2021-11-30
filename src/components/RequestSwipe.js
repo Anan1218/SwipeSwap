@@ -28,7 +28,7 @@ function RequestSwipe() {
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
-    
+
   }, []);
 
 
@@ -56,7 +56,7 @@ function RequestSwipe() {
   return (
     <div>
       <p>Request Swipe</p>
-    
+
       <form onSubmit={submitRequest}>
         <label>
           Dining Hall:
