@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import logo from '../images/logo.png';
 import { getSignedInUser } from "../services/Firebase";
 import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestore/lite';
 function RequestSwipe() {
   const db = getFirestore();
   const [requests, setRequests] = useState({
-    type: "listing",
     diningHall: "epic",
     period: "breakfast",
   });
@@ -37,12 +36,7 @@ function RequestSwipe() {
       userId: "",
     };
     const user = getSignedInUser();
-    var docRef;
-    if (requests.type == "listing") {
-      docRef = doc(collection(db, "SellSwipe"));
-    } else {
-      docRef = doc(collection(db, "BuySwipe"));
-    }
+    var docRef = doc(collection(db, "SellSwipe"));;
     if (user) {
       data.userId = user.uid;
       data.id = docRef.id;
@@ -77,19 +71,12 @@ function RequestSwipe() {
     <div className="row mainBackground">
       <div className="col-md-3"></div>
       <div className="col-md-6">
-        <div className="d-flex justify-content-center">
-          <h1 style={{ color: "white", fontSize: "50px" }}>Swipe Swap</h1>
+        <div className="d-flex justify-content-center" style={{ padding: "10px" }}>
+          <img src={logo} height="50"></img>
         </div>
         <div className="card" style={{ boxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }}>
-          <div class="card-header">Buy/Sell Swipes!</div>
+          <div class="card-header">Sell Swipes!</div>
           <div style={{ padding: "20px" }}>
-            <div className="mb-3">
-              <label className="form-label">List or Request?</label>
-              <select className="form-select" value={requests.type} onChange={(e) => handleTypeChange(e)}>
-                <option value="listing">Listing</option>
-                <option value="request">Request</option>
-              </select>
-            </div>
             <div className="mb-3">
               <label className="form-label">Dining Hall:</label>
               <select className="form-select" value={requests.diningHall} onChange={(e) => handleDiningChange(e)}>
@@ -111,7 +98,7 @@ function RequestSwipe() {
               </select>
             </div>
             <div className="mb-3">
-              <label Name="form-label">Date:</label>
+              <label name="form-label">Date:</label>
               <input type="date" className="form-control" onChange={(e) => handleDateChange(e)}></input>
             </div>
             <div className="d-flex justify-content-center">
