@@ -9,13 +9,20 @@ function SwipeList(props) {
   }, [props]);
 
   return (
-    <div>
+    <div className="col">
       <p>Swipe List:</p>
-      {swipes.map((swipe) => (
-        <div>
-          <p>{swipe.diningHallLocation}</p>
+      {swipes.map((swipe, i) => (
+        <div key = {i}>
+          <div class="card w-75">
+            <div class="card-body">
+              <h5 class="card-title">{swipe.diningHallLocation}</h5>
+              <p class="card-text">{swipe.mealPeriod}</p>
+              <a href="#" class="btn btn-primary">Button</a>
+            </div>
+          </div>
+          {/* <p>{swipe.diningHallLocation}</p> */}
           {/* <p>{swipe.date}</p> */}
-          <p>{swipe.mealPeriod}</p>
+          {/* <p>{swipe.mealPeriod}</p> */}
           {/* <p>{swipe.requestCreated}</p> */}
         </div>
       ))}
