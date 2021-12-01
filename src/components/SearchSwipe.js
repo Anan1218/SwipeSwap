@@ -3,6 +3,7 @@ import { collection, getDocs, getDoc, getFirestore, where, deleteDoc, doc, setDo
 
 import { getSignedInUser } from "../services/Firebase";
 
+import Navbar from './Navbar';
 import SwipeList from "./SwipeList";
 import '../css/SearchSwipe.css';
 
@@ -127,6 +128,7 @@ function SearchSwipe() {
 
   return (
     <div>
+      <Navbar />
       <div className="row">
         <div className="col-md-2 sidebar">
           <p>Sort By:</p>
