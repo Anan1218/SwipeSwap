@@ -9,6 +9,5 @@ export default function MainPage() {
             <UserInfo />
             <SearchSwipe />
         </div>
-
     );
 }
