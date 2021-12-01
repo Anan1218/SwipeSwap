@@ -20,7 +20,6 @@ function RequestSwipe() {
 
   }, []);
 
-
   const submitRequest = async () => {
     if (!date) {
       alert("Please enter a date");

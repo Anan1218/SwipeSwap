@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, getFirestore} from 'firebase/firestore/lite';
+import { collection, getDocs, getDoc, getFirestore, where, deleteDoc, doc, setDoc} from 'firebase/firestore/lite';
+
+import { getSignedInUser } from "../services/Firebase";
 
 import SwipeList from "./SwipeList";
 import '../css/SearchSwipe.css';
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 const db = getFirestore();
 
@@ -25,13 +24,60 @@ function SearchSwipe() {
         querySnapshot.forEach((doc) => {
           setSwipes(swipes => [...swipes, doc.data()]);
         });
-        setDisplay([...swipes]);
+        setDisplay(swipes);
       } catch (e) {
         console.log(e);
       } 
     }
     fetchSwipes();
   }, []);
+
+
+  const takeSwipe = async (swipeID) => {
+    console.log(swipeID);
+    try {
+      const user =  getSignedInUser();
+
+      //find the swipe in BuySwipe
+      const ref = doc(db, "BuySwipe", swipeID);
+      const docSnap = await getDoc(ref);
+      const swipe = docSnap.data();
+      console.log(docSnap.data())
+      //add the swipe to TakenSwipes
+
+      let data = {
+        date: swipe.date,
+        id: "",
+        diningHallLocation: swipe.diningHallLocation,
+        mealPeriod: swipe.mealPeriod,
+        requestCreated: swipe.requestCreated,
+        userId: "",
+      };
+
+      var docRef = doc(collection(db, "TakenSwipes"));
+      data.userId = user.uid;
+      data.id = docRef.id;
+
+      await setDoc(docRef, { ...data });
+
+      //remove the swipe in BuySwipe
+      await deleteDoc(doc(db, "BuySwipe", swipeID));
+
+      //refresh
+      try {
+        const querySnapshot = await getDocs(collection(db, "BuySwipe"));
+        querySnapshot.forEach((doc) => {
+          setSwipes(swipes => [...swipes, doc.data()]);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      setDisplay(display => display.filter((item,index) => item.id !== swipeID));
+    } catch (e) {
+      console.log(e);
+    } 
+
+  }
 
   const reload = (event) => {
     event.preventDefault();
@@ -111,7 +157,7 @@ function SearchSwipe() {
             <input type="submit" value="Submit" />
           </form>
         </div>
-        <SwipeList swipes={display} className="row"/>
+        <SwipeList swipes={display} takeSwipe={takeSwipe} className="row"/>
       </div>
       
     </div>
