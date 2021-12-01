@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { firebase } from "../services/Firebase";
-import { getFirestore, collection, getDocs} from 'firebase/firestore/lite';
-
-const db = getFirestore(firebase);
-
 function SwipeList(props) {
   const [swipes, setSwipes] = useState([]);
 
@@ -15,6 +10,7 @@ function SwipeList(props) {
 
   return (
     <div>
+      <p>Swipe List:</p>
       {swipes.map((swipe) => (
         <div>
           <p>{swipe.diningHallLocation}</p>
