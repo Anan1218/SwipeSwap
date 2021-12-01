@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+.mainBackground {
+  background-color: royalblue;
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100vh;
+}
