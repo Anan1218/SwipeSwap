@@ -9,6 +9,7 @@ import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestor
 function RequestSwipe() {
   const db = getFirestore();
   const [requests, setRequests] = useState({
+    type: "listing",
     diningHall: "epic",
     period: "breakfast",
   });
@@ -30,17 +31,29 @@ function RequestSwipe() {
       diningHallLocation: requests.diningHall,
       mealPeriod: requests.period,
       requestCreated: new Date(),
+      requestType: requests.type,
       userId: "",
     };
     const user = getSignedInUser();
+    var docRef;
+    if (requests.type == "listing") {
+      docRef = doc(collection(db, "SellSwipe"));
+    } else {
+      docRef = doc(collection(db, "BuySwipe"));
+    }
     if (user) {
       data.userId = user.uid;
-      const docRef = doc(collection(db, "BuySwipe"));
       data.id = docRef.id;
       await setDoc(docRef, { ...data });
     }
   };
 
+  const handleTypeChange = (event) => {
+    setRequests((requests) => ({
+      ...requests,
+      type: event.target.value
+    }));
+  };
   const handleDiningChange = (event) => {
     setRequests((requests) => ({
       ...requests,
@@ -55,11 +68,18 @@ function RequestSwipe() {
     }));
   };
 
+
   return (
     <div>
       <p>Request Swipe</p>
-
       <form onSubmit={submitRequest}>
+        <label>
+          List or Request:
+          <select value={requests.type} onChange={(e) => handleTypeChange(e)}>
+            <option value="listing">Listing</option>
+            <option value="request">Request</option>
+          </select>
+        </label>
         <label>
           Dining Hall:
           <select value={requests.diningHall} onChange={(e) => handleDiningChange(e)}>
