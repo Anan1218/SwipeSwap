@@ -8,6 +8,11 @@ function SwipeList(props) {
     setSwipes(props.swipes);
   }, [props]);
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    // console.log(event.target.value);
+    props.takeSwipe(event.target.value);
+  }
   return (
     <div className="col">
       <p>Swipe List:</p>
@@ -17,7 +22,7 @@ function SwipeList(props) {
             <div class="card-body">
               <h5 class="card-title">{swipe.diningHallLocation}</h5>
               <p class="card-text">{swipe.mealPeriod}</p>
-              <a href="#" class="btn btn-primary">Button</a>
+              <button value={swipe.id} className="btn btn-primary" onClick={handleClick}>Take Swipe</button>
             </div>
           </div>
           {/* <p>{swipe.diningHallLocation}</p> */}
