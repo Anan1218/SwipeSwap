@@ -5,11 +5,15 @@ import App from './App';
 import MainPage from './components/MainPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import UserInfo from './components/UserInfo';
+import SearchSwipe from './components/SearchSwipe';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="main" element={<MainPage />} />
+      <Route path="profile" element={<UserInfo />} />
+      <Route path="search" element={<SearchSwipe />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

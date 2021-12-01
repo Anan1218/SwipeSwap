@@ -3,6 +3,7 @@ import { db } from '../services/Firebase';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { getSignedInUser } from '../services/Firebase';
 import { BeatLoader } from 'react-spinners';
+import Navbar from './Navbar';
 export default function UserInfo() {
     useEffect(() => {
         getUser();
@@ -55,12 +56,25 @@ export default function UserInfo() {
     }
     return (
         <div>
-            <p>User Data: </p>
-            {userData != null
-                ? <UserInfoDisplay userData={userData} />
-                : <BeatLoader color={"#000000"} loading={true} />
-            }
+            <Navbar />
+            <div className="mainBackground">
+                <div className="row">
+                    <div className="col-md-3"></div>
+                    <div className="col-md-6">
+                        <div className="card text-center">
+                            <div style={{ textAlign: 'left' }}>
+                                {userData != null
+                                    ? <UserInfoDisplay userData={userData} />
+                                    : <BeatLoader color={"#000000"} loading={true} />
+                                }
+                            </div>
 
-        </div>
+                        </div>
+                    </div>
+                    <div className="col-md-3"></div>
+                </div>
+
+            </div>
+        </div >
     );
 };;
