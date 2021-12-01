@@ -31,4 +31,4 @@ export function isAuthenticated() {
     }
 }
 // Initialize Firebase
-export const db = getFirestore();
+export const db = getFirestore(firebaseApp);

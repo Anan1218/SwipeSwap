@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-import { db } from "../services/Firebase";
-import { getFirestore, collection, getDocs} from 'firebase/firestore/lite';
+import { collection, getDocs, getFirestore} from 'firebase/firestore/lite';
 
 import SwipeList from "./SwipeList";
+
+const db = getFirestore();
 
 function SearchSwipe() {
   const [swipes, setSwipes] = useState([]);
 
   useEffect(() => {
-    const fetchSwipes = async () => {
+    const fetchRequests = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "BuySwipe"));
         querySnapshot.forEach((doc) => {
-          setSwipes(requests => [...requests, doc.data()]);
+          setSwipes(swipes => [...swipes, doc.data()]);
         });
-        // console.log(swipes);
       } catch (e) {
         console.log(e);
       } 
     }
-    fetchSwipes();
+    fetchRequests();
   }, []);
   return (
     <div>
