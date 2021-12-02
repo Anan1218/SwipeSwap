@@ -4,6 +4,7 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { getSignedInUser } from '../services/Firebase';
 import { BeatLoader } from 'react-spinners';
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 export default function UserInfo() {
     useEffect(() => {
         getUser();
@@ -51,22 +52,25 @@ export default function UserInfo() {
                 <p>Name: {props.userData.displayName}</p>
                 <p>Email: {props.userData.email}</p>
                 <p>Your Listings: </p>
-                {listings ? <SwipeList swipes={listings} /> : <BeatLoader loading={true} />}
+                {listings ? <SwipeList swipes={listings} isRequest={false} /> : <BeatLoader loading={true} />}
                 <p>Your Purchases: </p>
-                {requests ? <SwipeList swipes={requests} /> : <BeatLoader loading={true} />}
+                {requests ? <SwipeList swipes={requests} isRequest={true} /> : <BeatLoader loading={true} />}
             </div>
         );
     }
     function SwipeList(props) {
         const swipes = props.swipes;
+        const isRequest = props.isRequest;
         return (
             <div>
                 {swipes.map((swipe, i) => (
                     <div key={i}>
-                        <div class="card" style={{ height: "100px" }}>
+                        <div class="card" style={{ height: "100%" }}>
                             <div class="card-body">
-                                <h5 class="card-title">Dining Hall: {swipe.diningHallLocation}</h5>
-                                <p class="card-text">Meal Period: {swipe.mealPeriod}</p>
+                                <h5 className="card-title">Dining Hall: {swipe.diningHallLocation}</h5>
+                                <p className="card-text">Meal Period: {swipe.mealPeriod}</p>
+                                <p className="card-text">Date: {swipe.date}</p>
+                                {isRequest ? <Link to={`/userProfile/${swipe.previousUserId}`}><button className="btn btn-primary">Contact User</button></Link> : <div />}
                             </div>
                         </div>
                     </div>

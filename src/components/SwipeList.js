@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
 function SwipeList(props) {
   const [swipes, setSwipes] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // console.log(props.swipes);
     setSwipes(props.swipes);
   }, [props]);
 
-  const handleClick = (event) => {
-    event.preventDefault();
+  const handleClick = (swipe) => {
+    console.log(swipe);
     // console.log(event.target.value);
-    props.takeSwipe(event.target.value);
+    props.takeSwipe(swipe.id);
+    console.log(swipe.userId);
+    navigate(`/userProfile/${swipe.userId}`);
   };
   return (
     <div className="col">
@@ -22,7 +24,7 @@ function SwipeList(props) {
             <div class="card-body">
               <h5 class="card-title">{swipe.diningHallLocation}</h5>
               <p class="card-text">{swipe.mealPeriod + " | " + swipe.date}</p>
-              <button value={swipe.id} className="btn btn-primary" onClick={handleClick}>Take Swipe</button>
+              <button value={swipe.id} className="btn btn-primary" onClick={() => handleClick(swipe)}>Take Swipe</button>
             </div>
           </div>
         </div>
