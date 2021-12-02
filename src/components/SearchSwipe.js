@@ -53,7 +53,7 @@ function SearchSwipe() {
         diningHallLocation: swipe.diningHallLocation,
         mealPeriod: swipe.mealPeriod,
         requestCreated: swipe.requestCreated,
-        userId: "",
+        userId: swipe.userId,
       };
 
       var docRef = doc(collection(db, "TakenSwipes"));
