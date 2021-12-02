@@ -42,6 +42,7 @@ function RequestSwipe() {
       data.id = docRef.id;
       await setDoc(docRef, { ...data });
     }
+    alert("Submitted!")
   };
 
   const handleDiningChange = (event) => {

@@ -21,7 +21,7 @@ function SwipeList(props) {
           <div class="card w-100">
             <div class="card-body">
               <h5 class="card-title">{swipe.diningHallLocation}</h5>
-              <p class="card-text">{swipe.mealPeriod}</p>
+              <p class="card-text">{swipe.mealPeriod + " | " + swipe.date}</p>
               <button value={swipe.id} className="btn btn-primary" onClick={handleClick}>Take Swipe</button>
             </div>
           </div>
