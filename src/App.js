@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect } from 'react';
-import SignIn from './components/SignIn';
 import Landing from './components/Landing';
 import Navigation from './components/Navigation';
 import Home from './components/Home';
