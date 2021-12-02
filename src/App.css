@@ -1,10 +1,15 @@
 .App {
   text-align: center;
+  background-color: royalblue;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.navigation{
+	background-color: #eb9d44;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -44,7 +49,40 @@
   height: 100%;
   min-height: 100vh;
 }
+.col-lg-7{
+	padding-top: 200px;
+}
+.home{
+	background-color: royalblue;
+	margin-top: -50px;
+	height: 650px;
+	
+}
 
+.after{
+	height:300px;
+	background-color: royalblue;
+}
+
+.font-weight-light{
+	color: #eb9d44;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 60px;
+	padding-top: 300px;
+	
+}
+
+.homepara{
+	color: #FFF;
+}
+.start{
+	height: 100px;
+	background-color:#eb9d44;
+}
+.bottom{
+	height: 50px;
+	background-color:#eb9d44;
+}
 .cardshadow {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 20px
