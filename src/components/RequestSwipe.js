@@ -32,9 +32,9 @@ function RequestSwipe() {
       diningHallLocation: requests.diningHall,
       mealPeriod: requests.period,
       requestCreated: new Date(),
-      requestType: requests.type,
       userId: "",
     };
+    console.log(data);
     const user = getSignedInUser();
     var docRef = doc(collection(db, "SellSwipe"));;
     if (user) {
@@ -74,7 +74,7 @@ function RequestSwipe() {
         <div className="d-flex justify-content-center" style={{ padding: "10px" }}>
           <img src={logo} height="50"></img>
         </div>
-        <div className="card" style={{ boxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }}>
+        <div className="card cardshadow">
           <div class="card-header">Sell Swipes!</div>
           <div style={{ padding: "20px" }}>
             <div className="mb-3">

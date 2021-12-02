@@ -12,12 +12,12 @@ function SwipeList(props) {
     event.preventDefault();
     // console.log(event.target.value);
     props.takeSwipe(event.target.value);
-  }
+  };
   return (
     <div className="col">
       <p>Swipe List:</p>
       {swipes.map((swipe, i) => (
-        <div key = {i}>
+        <div key={i}>
           <div class="card w-75">
             <div class="card-body">
               <h5 class="card-title">{swipe.diningHallLocation}</h5>

@@ -25,7 +25,7 @@ export default function UserInfo() {
     }
     async function getListingsAndRequests(uid) {
         const listings = collection(db, "SellSwipe");
-        const requests = collection(db, "BuySwipe");
+        const requests = collection(db, "TakenSwipes");
         var l = [];
         var r = [];
         const qL = query(listings, where("userId", "==", uid));
@@ -33,24 +33,44 @@ export default function UserInfo() {
         const snapshot1 = await getDocs(qL);
         const snapshot2 = await getDocs(qr);
         snapshot1.forEach((doc) => {
-            l.push(doc);
+            l.push(doc.data());
         });
         snapshot2.forEach((doc) => {
-            r.push(doc);
+            r.push(doc.data());
         });
         setListings(l);
         setRequests(r);
     }
     function UserInfoDisplay(props) {
+        console.log("Lists");
+        console.log(listings);
+        console.log(requests);
         return (
             <div>
                 <img src={props.userData.photoUrl} />
                 <p>Name: {props.userData.displayName}</p>
                 <p>Email: {props.userData.email}</p>
                 <p>Your Listings: </p>
-                {listings ? <p>Has Listings!</p> : <BeatLoader loading={true} />}
-                <p>Your Requests: </p>
-                {requests ? <p>Has requests!</p> : <BeatLoader loading={true} />}
+                {listings ? <SwipeList swipes={listings} /> : <BeatLoader loading={true} />}
+                <p>Your Purchases: </p>
+                {requests ? <SwipeList swipes={requests} /> : <BeatLoader loading={true} />}
+            </div>
+        );
+    }
+    function SwipeList(props) {
+        const swipes = props.swipes;
+        return (
+            <div>
+                {swipes.map((swipe, i) => (
+                    <div key={i}>
+                        <div class="card" style={{ height: "100px" }}>
+                            <div class="card-body">
+                                <h5 class="card-title">Dining Hall: {swipe.diningHallLocation}</h5>
+                                <p class="card-text">Meal Period: {swipe.mealPeriod}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     }
@@ -61,14 +81,13 @@ export default function UserInfo() {
                 <div className="row">
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
-                        <div className="card text-center">
+                        <div className="card cardshadow text-center">
                             <div style={{ textAlign: 'left' }}>
                                 {userData != null
                                     ? <UserInfoDisplay userData={userData} />
                                     : <BeatLoader color={"#000000"} loading={true} />
                                 }
                             </div>
-
                         </div>
                     </div>
                     <div className="col-md-3"></div>
