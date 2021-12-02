@@ -48,10 +48,9 @@ function SignIn() {
     }
     return (
         <div>
-            <button onClick={googleAuth} className="btn btn-success" type="button">
-                <p>Sign in</p>
+            <button onClick={googleAuth} className="btn btn-warning" type="button" style={{ height: "70px", width: "140px" }}>
+                Sign In
             </button>
-
         </div>
     );
 }

@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import Landing from './components/Landing';
 import Navigation from './components/Navigation';
 import Home from './components/Home';
+import SignIn from './components/SignIn';
 import { isAuthenticated } from './services/Firebase';
 import { Navigate } from 'react-router-dom';
 function App() {
