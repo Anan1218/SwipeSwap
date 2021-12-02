@@ -15,20 +15,16 @@ function SwipeList(props) {
   };
   return (
     <div className="col">
-      <p>Swipe List:</p>
+      <h3>Swipe List:</h3>
       {swipes.map((swipe, i) => (
         <div key={i}>
-          <div class="card w-75">
+          <div class="card w-100">
             <div class="card-body">
               <h5 class="card-title">{swipe.diningHallLocation}</h5>
               <p class="card-text">{swipe.mealPeriod}</p>
               <button value={swipe.id} className="btn btn-primary" onClick={handleClick}>Take Swipe</button>
             </div>
           </div>
-          {/* <p>{swipe.diningHallLocation}</p> */}
-          {/* <p>{swipe.date}</p> */}
-          {/* <p>{swipe.mealPeriod}</p> */}
-          {/* <p>{swipe.requestCreated}</p> */}
         </div>
       ))}
     </div>

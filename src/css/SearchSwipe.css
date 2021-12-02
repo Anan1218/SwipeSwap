@@ -1,4 +1,26 @@
 .sidebar {
-  padding: 20px;
-  width: 20%;
+  padding: 25px;
+  width: 25%;
+}
+
+.swipeList {
+  padding: 25px;
+  width: 75%;
+}
+
+.diningHall {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.mealPeriod {
+  padding-bottom: 20px;
+}
+
+.higher {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.searchContainer {
 }

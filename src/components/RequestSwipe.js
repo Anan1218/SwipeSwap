@@ -9,8 +9,8 @@ import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestor
 function RequestSwipe() {
   const db = getFirestore();
   const [requests, setRequests] = useState({
-    diningHall: "epic",
-    period: "breakfast",
+    diningHall: "Epicuria",
+    period: "Breakfast",
   });
 
   const [date, setDate] = useState(null);
@@ -44,12 +44,6 @@ function RequestSwipe() {
     }
   };
 
-  const handleTypeChange = (event) => {
-    setRequests((requests) => ({
-      ...requests,
-      type: event.target.value
-    }));
-  };
   const handleDiningChange = (event) => {
     setRequests((requests) => ({
       ...requests,
@@ -80,21 +74,21 @@ function RequestSwipe() {
             <div className="mb-3">
               <label className="form-label">Dining Hall:</label>
               <select className="form-select" value={requests.diningHall} onChange={(e) => handleDiningChange(e)}>
-                <option value="epic">Epicuria/Covel</option>
-                <option value="deneve">De Neve</option>
-                <option value="bplate">Bruin Plate</option>
-                <option value="feast">Feast</option>
-                <option value="rende">Rendezvous</option>
-                <option value="study">The Study</option>
-                <option value="cafe">Bruin Cafe</option>
+                <option value="Epicuria">Epicuria/Covel</option>
+                <option value="De Neve">De Neve</option>
+                <option value="Bruin Plate">Bruin Plate</option>
+                <option value="Feast">Feast</option>
+                <option value="Rendevous">Rendezvous</option>
+                <option value="The Study">The Study</option>
+                <option value="Bruin Cafe">Bruin Cafe</option>
               </select>
             </div>
             <div className="mb-3">
               <label className="form-label">Meal Period:</label>
               <select className="form-select" value={requests.period} onChange={(e) => handlePeriodChange(e)}>
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
               </select>
             </div>
             <div className="mb-3">
