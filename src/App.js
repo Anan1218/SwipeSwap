@@ -15,9 +15,9 @@ function App() {
   });
   return (
     <div className="App">
-	<Navigation />
-	<Home/>
-	<Footer/>
+      <Navigation />
+      <Home />
+      <Footer />
       <SignIn />
       {isAuthenticated()
         ? <Navigate to="/main" />
