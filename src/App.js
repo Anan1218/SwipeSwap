@@ -3,6 +3,9 @@ import './App.css';
 import React, { useEffect } from 'react';
 import SignIn from './components/SignIn';
 import Landing from './components/Landing';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import Home from './components/Home';
 import { isAuthenticated } from './services/Firebase';
 import { Navigate } from 'react-router-dom';
 function App() {
@@ -12,7 +15,9 @@ function App() {
   });
   return (
     <div className="App">
-      <Landing />
+	<Navigation />
+	<Home/>
+	<Footer/>
       <SignIn />
       {isAuthenticated()
         ? <Navigate to="/main" />
