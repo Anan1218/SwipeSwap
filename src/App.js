@@ -12,14 +12,12 @@ function App() {
   });
   return (
     <div className="App">
-      <header className="App-header">
-        <Landing />
-        <SignIn />
-        {isAuthenticated()
-          ? <Navigate to="/main" />
-          : <div></div>
-        }
-      </header>
+      <Landing />
+      <SignIn />
+      {isAuthenticated()
+        ? <Navigate to="/main" />
+        : <div></div>
+      }
     </div>
   );
 }
