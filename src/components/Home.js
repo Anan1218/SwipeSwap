@@ -1,4 +1,6 @@
 import React from "react";
+import pic from "./../images/Ee36c0VUEAU-_sZ.jpeg"
+
 
 function Home() {
   return (
@@ -8,7 +10,7 @@ function Home() {
       <div class="container">
         <div class="row align-items-center my-5" >
           <div class="col-lg-7">
-            <img class="img-fluid rounded mb-4 mb-lg-0" src="./../images/Ee36c0VUEAU-_sZ.jpeg" alt=""/>
+		  <img src={pic}/>
           </div>
           <div class="col-lg-5">
             <h1 class="font-weight-light">Swipe Swap</h1>
