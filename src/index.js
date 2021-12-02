@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserInfo from './components/UserInfo';
 import SearchSwipe from './components/SearchSwipe';
+import UserProfile from './components/UserProfile';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Route path="main" element={<MainPage />} />
       <Route path="profile" element={<UserInfo />} />
       <Route path="search" element={<SearchSwipe />} />
+      <Route path="userProfile/:id" element={<UserProfile />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

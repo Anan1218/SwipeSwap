@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, getDoc, getFirestore, deleteDoc, doc, setDoc} from 'firebase/firestore/lite';
+import { collection, getDocs, getDoc, getFirestore, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 
 import { getSignedInUser } from "../services/Firebase";
 
@@ -29,8 +29,8 @@ function SearchSwipe() {
         setDisplay(swipes);
       } catch (e) {
         console.log(e);
-      } 
-    }
+      }
+    };
     fetchSwipes();
   }, []);
 
@@ -38,13 +38,13 @@ function SearchSwipe() {
   const takeSwipe = async (swipeID) => {
     console.log(swipeID);
     try {
-      const user =  getSignedInUser();
+      const user = getSignedInUser();
 
       //find the swipe in BuySwipe
       const ref = doc(db, "SellSwipe", swipeID);
       const docSnap = await getDoc(ref);
       const swipe = docSnap.data();
-      console.log(docSnap.data())
+      console.log(docSnap.data());
       //add the swipe to TakenSwipes
 
       let data = {
@@ -57,10 +57,10 @@ function SearchSwipe() {
       };
 
       var docRef = doc(collection(db, "TakenSwipes"));
+      var prevOwner = data.userId;
       data.userId = user.uid;
       data.id = docRef.id;
-
-      await setDoc(docRef, { ...data });
+      await setDoc(docRef, { ...data, previousUserId: prevOwner });
 
       //remove the swipe in BuySwipe
       await deleteDoc(doc(db, "SellSwipe", swipeID));
@@ -74,16 +74,15 @@ function SearchSwipe() {
       } catch (e) {
         console.log(e);
       }
-      setDisplay(display => display.filter((item,index) => item.id !== swipeID));
+      setDisplay(display => display.filter((item, index) => item.id !== swipeID));
     } catch (e) {
       console.log(e);
-    } 
+    }
 
-  }
+  };
 
   const reload = (event) => {
     event.preventDefault();
-
     let newDisplay = swipes;
     if (requests.diningHallLocation === "all" && requests.period === "all") {
 
@@ -93,21 +92,22 @@ function SearchSwipe() {
         return (
           item.diningHallLocation === requests.diningHallLocation &&
           item.mealPeriod === requests.period
-        )
+        );
       });
     } else if (requests.diningHallLocation !== "all") {
       newDisplay = swipes.filter(item => {
         return (
           item.diningHallLocation === requests.diningHallLocation
-        )
+        );
       });
-    } else if (requests.mealPeriod !== "all"){
+    } else if (requests.mealPeriod !== "all") {
       newDisplay = swipes.filter(item => {
         return (
           item.mealPeriod === requests.period
-        )
+        );
       });
     }
+    console.log(newDisplay);
     setDisplay(newDisplay);
   };
 
@@ -131,15 +131,15 @@ function SearchSwipe() {
     <div>
       <Navbar />
       <div className="mainBackground higher">
-        <div class = "row">
-          <div class = "col-md-3"></div>
-            <div class = "col-md-6">
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
             <div className="card">
               <div className="row searchContainer">
                 <div className="sidebar">
                   <h3>Filter:</h3>
                   <form onSubmit={reload}>
-                    <label className = "diningHall">
+                    <label className="diningHall">
                       <h5>Dining Hall:</h5>
                       <select value={requests.diningHall} onChange={(e) => handleDiningChange(e)}>
                         <option value="all">All</option>
@@ -152,7 +152,7 @@ function SearchSwipe() {
                         <option value="Bruin Cafe">Bruin Cafe</option>
                       </select>
                     </label>
-                    <label className = "mealPeriod">
+                    <label className="mealPeriod">
                       <h5>Meal Period:</h5>
                       <select value={requests.period} onChange={(e) => handlePeriodChange(e)}>
                         <option value="all">All</option>
@@ -166,12 +166,12 @@ function SearchSwipe() {
                   </form>
                 </div>
                 <div className="row swipeList">
-                  <SwipeList swipes={display} takeSwipe={takeSwipe}/>
+                  <SwipeList swipes={display} takeSwipe={takeSwipe} />
                 </div>
               </div>
             </div>
           </div>
-          <div class = "col-md-3"></div>
+          <div class="col-md-3"></div>
         </div>
       </div>
     </div>
