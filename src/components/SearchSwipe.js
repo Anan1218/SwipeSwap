@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, getDoc, getFirestore, where, deleteDoc, doc, setDoc} from 'firebase/firestore/lite';
+import { collection, getDocs, getDoc, getFirestore, deleteDoc, doc, setDoc} from 'firebase/firestore/lite';
 
 import { getSignedInUser } from "../services/Firebase";
 
 import Navbar from './Navbar';
 import SwipeList from "./SwipeList";
 import '../css/SearchSwipe.css';
+import '../App.css';
 
 const db = getFirestore();
 
@@ -21,7 +22,7 @@ function SearchSwipe() {
   useEffect(() => {
     const fetchSwipes = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "BuySwipe"));
+        const querySnapshot = await getDocs(collection(db, "SellSwipe"));
         querySnapshot.forEach((doc) => {
           setSwipes(swipes => [...swipes, doc.data()]);
         });
@@ -40,7 +41,7 @@ function SearchSwipe() {
       const user =  getSignedInUser();
 
       //find the swipe in BuySwipe
-      const ref = doc(db, "BuySwipe", swipeID);
+      const ref = doc(db, "SellSwipe", swipeID);
       const docSnap = await getDoc(ref);
       const swipe = docSnap.data();
       console.log(docSnap.data())
@@ -62,11 +63,11 @@ function SearchSwipe() {
       await setDoc(docRef, { ...data });
 
       //remove the swipe in BuySwipe
-      await deleteDoc(doc(db, "BuySwipe", swipeID));
+      await deleteDoc(doc(db, "SellSwipe", swipeID));
 
       //refresh
       try {
-        const querySnapshot = await getDocs(collection(db, "BuySwipe"));
+        const querySnapshot = await getDocs(collection(db, "SellSwipe"));
         querySnapshot.forEach((doc) => {
           setSwipes(swipes => [...swipes, doc.data()]);
         });
@@ -129,41 +130,51 @@ function SearchSwipe() {
   return (
     <div>
       <Navbar />
-      <div className="row">
-        <div className="col-md-2 sidebar">
-          <p>Sort By:</p>
-          <form onSubmit={reload}>
-            <label>
-              Dining Hall:
-              <select value={requests.diningHall} onChange={(e) => handleDiningChange(e)}>
-                <option value="all">All</option>
-                <option value="epic">Epicuria/Covel</option>
-                <option value="deneve">De Neve</option>
-                <option value="bplate">Bruin Plate</option>
-                <option value="feast">Feast</option>
-                <option value="rende">Rendezvous</option>
-                <option value="study">The Study</option>
-                <option value="cafe">Bruin Cafe</option>
-              </select>
-            </label>
-            <label>
-              Meal Period:
-              <select value={requests.period} onChange={(e) => handlePeriodChange(e)}>
-                <option value="all">All</option>
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-              </select>
-            </label>
+      <div className="mainBackground higher">
+        <div class = "row">
+          <div class = "col-md-3"></div>
+            <div class = "col-md-6">
+            <div className="card">
+              <div className="row searchContainer">
+                <div className="sidebar">
+                  <h3>Filter:</h3>
+                  <form onSubmit={reload}>
+                    <label className = "diningHall">
+                      <h5>Dining Hall:</h5>
+                      <select value={requests.diningHall} onChange={(e) => handleDiningChange(e)}>
+                        <option value="all">All</option>
+                        <option value="Epicuria">Epicuria/Covel</option>
+                        <option value="De Neve">De Neve</option>
+                        <option value="Bruin Plate">Bruin Plate</option>
+                        <option value="Feast">Feast</option>
+                        <option value="Rendezvous">Rendezvous</option>
+                        <option value="The Study">The Study</option>
+                        <option value="Bruin Cafe">Bruin Cafe</option>
+                      </select>
+                    </label>
+                    <label className = "mealPeriod">
+                      <h5>Meal Period:</h5>
+                      <select value={requests.period} onChange={(e) => handlePeriodChange(e)}>
+                        <option value="all">All</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                      </select>
+                    </label>
 
-            <input type="submit" value="Submit" />
-          </form>
+                    <input type="submit" value="Submit" />
+                  </form>
+                </div>
+                <div className="row swipeList">
+                  <SwipeList swipes={display} takeSwipe={takeSwipe}/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class = "col-md-3"></div>
         </div>
-        <SwipeList swipes={display} takeSwipe={takeSwipe} className="row"/>
       </div>
-      
     </div>
-    
   );
 };
 

@@ -32,7 +32,6 @@ function RequestSwipe() {
       diningHallLocation: requests.diningHall,
       mealPeriod: requests.period,
       requestCreated: new Date(),
-      requestType: requests.type,
       userId: "",
     };
     const user = getSignedInUser();
@@ -44,12 +43,6 @@ function RequestSwipe() {
     }
   };
 
-  const handleTypeChange = (event) => {
-    setRequests((requests) => ({
-      ...requests,
-      type: event.target.value
-    }));
-  };
   const handleDiningChange = (event) => {
     setRequests((requests) => ({
       ...requests,
