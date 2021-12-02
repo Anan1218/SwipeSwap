@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect } from 'react';
-import SignIn from './components/SignIn';
 import Landing from './components/Landing';
 import { isAuthenticated } from './services/Firebase';
 import { Navigate } from 'react-router-dom';
@@ -13,7 +12,6 @@ function App() {
   return (
     <div className="App">
       <Landing />
-      <SignIn />
       {isAuthenticated()
         ? <Navigate to="/main" />
         : <div></div>
